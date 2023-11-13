@@ -20,7 +20,7 @@ main() {
 check_env_vars_set() {
   for required_env_var in ${REQUIRED_ENV_VARS[@]}; do
     echo ${!required_env_var}
-    sed -i "s/\${$required_env_var}/${!required_env_var}/g" init.sql
+    sed -i "s/\${$required_env_var}/${!required_env_var}/g" ./init.sql
   done
 }
 

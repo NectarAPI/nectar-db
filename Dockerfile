@@ -10,12 +10,16 @@ ARG TOKENS_SERVICE_DB_PASSWORD=hQ*E7AF3j7I#
 ARG USER_SERVICE_DB_PASSWORD=8qVi&H5DdU0q
 ARG WEB_DB_PASSWORD=9lYleg46IU6@
 
-COPY script.sh .
-RUN chmod +x script.sh
-RUN script.sh
-
 COPY pg_hba.conf /etc/postgresql/14/main/
 COPY postgresql.conf /etc/postgresql/14/main/
-COPY init.sql /docker-entrypoint-initdb.d/
+
+WORKDIR /
+
+COPY init.sql .
+COPY script.sh .
+RUN chmod +x ./script.sh
+RUN ./script.sh
+
+RUN cp init.sql /docker-entrypoint-initdb.d/
 
 EXPOSE 5432
